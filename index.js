@@ -5,7 +5,13 @@ var clear = document.querySelector('#clear')
 var textarea = document.querySelector('textarea')
 
 // Retrieve name and note content from cookies and localstorage
+
+var notes = localStorage.getItem('notes')
 // Then apply them to elements on the page
+
+if (notes){
+  textarea.textContent = notes
+}
 // YOUR CODE HERE
 
 formEl.onsubmit = function(e) {
@@ -14,6 +20,9 @@ formEl.onsubmit = function(e) {
   // save name element's content to cookies
   // save textarea's content to localstorage
   // YOUR CODE HERE
+
+  document.cookie = "name=" + nameSpan.textContent + ";"
+  localStorage.setItem( 'notes' , textarea.value,)
 
   // triggers thumbs up animation
   this.elements.save.classList.add('emoji')
