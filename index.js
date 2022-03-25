@@ -1,43 +1,45 @@
-// acquire references to page elements
 var nameSpan = document.querySelector('span')
 var formEl = document.querySelector('form')
 var clear = document.querySelector('#clear')
 var textarea = document.querySelector('textarea')
 
-// Retrieve name and note content from cookies and localstorage
 
 var notes = localStorage.getItem('notes')
-// Then apply them to elements on the page
 
 if (notes){
   textarea.textContent = notes
 }
-// YOUR CODE HERE
+else{
+  textarea.textContent = "Type your to-do's here."
+}
+
+var user
+var cookieSplit = document.cookie.split('; ')
+var personName = cookieSplit.find(function(cookie){
+return cookie.startsWith('name')
+})
+if(personName){
+  user = personName.split('=')[1]
+  nameSpan.textContent = user
+}
 
 formEl.onsubmit = function(e) {
-  // prevents form submission
   e.preventDefault()
-  // save name element's content to cookies
-  // save textarea's content to localstorage
-  // YOUR CODE HERE
+
 
   document.cookie = "name=" + nameSpan.textContent + ";"
   localStorage.setItem( 'notes' , textarea.value,)
 
-  // triggers thumbs up animation
   this.elements.save.classList.add('emoji')
 }
 
 clear.onclick = function() {
-  // Clear textarea's value
-  // Clear localstorage's content
-  // YOUR CODE HERE
+  textarea.textContent = " "
+  localStorage.clear()
 
-  // triggers thumbs up animation
   this.classList.add('emoji')
 }
 
-// this code allows repeated thumbs up animations
 function endThumbsUp() {
   this.classList.remove('emoji')
 }
